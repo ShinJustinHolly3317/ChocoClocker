@@ -6,6 +6,7 @@ dotenv.config();
 ;(async () => {
   const browser = await puppeteer.launch({ headless: false })
   const page = await browser.newPage()
+  page.setDefaultNavigationTimeout(0)
   await page.setCookie(...localCookies)
 
   await page.goto('https://bsignin.104.com.tw/login')
@@ -26,7 +27,7 @@ dotenv.config();
   await page.goto('https://pro.104.com.tw/psc2')
   const gotomainSelector = '[class="btn btn-white btn-lg btn-block"]'
   await page.waitForSelector(gotomainSelector)
-  let source = await page.content()
+  // let source = await page.content()
 
   await page.click(gotomainSelector)
   await page.waitForNavigation()

@@ -25,4 +25,4 @@ const cookiesObj = cookies
     }
   });
 
-console.log(cookiesObj)
+console.log(`export const localCookies = ${JSON.stringify(cookiesObj)}`)

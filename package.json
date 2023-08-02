@@ -6,7 +6,7 @@
   "scripts": {
     "generate-cookie": "node formatchanger.js > local-cookies.js",
     "start": "node clock.js",
-    "set-cron": "echo \"* 9 * * * cd $(pwd) && npm run start\" >> mycron && crontab ./mycron && rm ./mycron"
+    "set-cron": "echo \"PATH=/usr/bin:/bin:$(which node | sed 's/\\/node$//')\\n* 9 * * * cd $(pwd) && npm run start\" >> mycron && crontab ./mycron && rm ./mycron"
   },
   "keywords": [],
   "author": "",

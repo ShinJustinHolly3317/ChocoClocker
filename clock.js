@@ -35,11 +35,12 @@ dotenv.config();
 
     // 由時間做判斷
     if (currentHour < 12) {
-      selector = '.PSC-ClockIn.morning';
+      selector = '.PSC-ClockIn.morning'; 
+    } else if (currentHour >= 12 && currentHour < 18) {
+      selector = '.PSC-ClockIn.noon'; 
     } else {
-      selector = '.PSC-ClockIn.noon';
+      selector = '.PSC-ClockIn.night';
     }
-
 
     // 等待特定的 div 元素出现
     const divElement = await page.waitForSelector(selector, { timeout: 300000 }); 

@@ -6,14 +6,16 @@ dotenv.config();
 // recurisve find target
 const avoidTarget = async (asyncFn, target) => {
   const val = await asyncFn();
+  console.log(`${val} is not equal to ${target}`);
   if (val !== target) {
     return true;
   } else {
-    return avoidTarget(fn, target);
+    return avoidTarget(asyncFn, target);
   }
 }
   
 ;(async () => {
+  console.log(`Clocker started at ${new Date()}`);
   const browser = await puppeteer.launch({ headless: false })
   const page = await browser.newPage()
   page.setDefaultNavigationTimeout(0)
@@ -56,14 +58,14 @@ const avoidTarget = async (asyncFn, target) => {
     const divElement = await page.waitForSelector(selector, { timeout: 300000 }); 
 
     // wait for clock-in botton div
-    const divElement = await page.waitForSelector(selector, { timeout: 10000 }); 
+    const divElement = await page.waitForSelector(selector, { timeout: 100000 }); 
     // wait for clock-in time updated, cause default is 1970.1.1, sometimes will clock with that time before the datetime updated.
-    const dateEle = await page.waitForSelector('.PSC-ClockIn .-date', { timeout: 10000 });
+    const dateEle = await page.waitForSelector('.PSC-ClockIn .-date', { timeout: 100000 });
     avoidTarget(async () => {
       const dateText = await page.evaluate(element => element.textContent, dateEle);
       console.log('dateText', dateText);
       return dateText.split('.')[0];
-    }, 1970)
+    }, '1970')
     
     const divHTML = await page.evaluate(div => div.outerHTML, divElement);
     console.log('div 元素的 HTML：', divHTML);
